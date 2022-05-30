@@ -104,26 +104,26 @@ bool excesoDeVelocidad(viaje v) {
 
 
 /************************************ EJERCICIO recorridoCubierto *******************************/
-bool puntoCubiertoViaje(gps v, recorrido r, distancia u){
-
+bool puntoCubiertoViaje(gps g, viaje v, distancia u){
     int i = 0;
-    while (i < r.size() && (distEnKM(v,r[i])< u )){
+    while (i < v.size() && (distEnKM(g, obtenerPosicion(v[i])) > u )){
         i++;
     }
-    return i== r.size();
+    return i!= v.size();
 }
 vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
     vector<gps> resp;
     // codigo
 
-    for (int i = 0; i < v.size(); i++){
-        if (!puntoCubiertoViaje(obtenerPosicion(v[i]),r,u))
+    for (int i = 0; i < r.size(); i++){
+        if (!puntoCubiertoViaje(r[i],v,u))
         {
-            resp.push_back(obtenerPosicion(v[i]));
+            resp.push_back(r[i]);
         }
     }
     return resp;
 }
+
 
 /***************************************** EJERCICIO flota ***************************************/
 
