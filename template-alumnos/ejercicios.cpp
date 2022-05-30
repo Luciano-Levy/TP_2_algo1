@@ -28,6 +28,9 @@ tiempo tiempoTotal(viaje v) {
     return t;
 }
 
+// O(n) recorre todos los elementos para asegurarse de tener el mayor y el menor.
+// // n = |v|
+
 /************++*********************** EJERCICIO distanciaTotal ************++*********************/
 
 int tiempoMenor(viaje v, int j) {
@@ -40,6 +43,8 @@ int tiempoMenor(viaje v, int j) {
     }
     return tMenor;
 }
+// O(n) recorre todo el vector
+
 
 viaje swap(int i, int j , viaje v){
     tuple<tiempo, gps> x = v[i];
@@ -56,6 +61,8 @@ viaje ordenarPorTiempo(viaje v){
     }
     return v;
 }
+// es O(n^2) recorre todos los elementos y usa la funcion tiempoMenor que es O(n).
+// n = |v|
 
 distancia distanciaTotal(viaje v) {
     distancia d;
@@ -69,6 +76,8 @@ distancia distanciaTotal(viaje v) {
     return d;
 }
 
+// es O(n^2 + n), ordena el vector y despues lo recorre, pertenece a O(n^2).
+// n = |v|
 /*****************************+***** EJERCICIO excesoDeVelocidad **********************************/
 int velocidad(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2){
     int distancia = distEnKM(obtenerPosicion(p2), obtenerPosicion(p1));
@@ -80,19 +89,19 @@ int velocidad(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2){
 
 bool excesoDeVelocidad(viaje v) {
     bool resp = false;
-    // codigo
-    viaje v0 = v;
 
-    v0 = ordenarPorTiempo(v);
 
-    for ( int i = 1; i <v.size() ; i++){
-        int velocidadPorHora = velocidad(v0[i-1],v0[i]);
-        if (velocidadPorHora > 80){
-            resp = true;
-        }
+    v = ordenarPorTiempo(v);
+    int i = 0;
+    while(i < v.size() && velocidad(v[i-1],v[i]) < 80){
+        i++;
     }
-    return resp;
+    return i != v.size();
 }
+
+
+// es O(n^2 + n), ordena el vector y despues lo recorre, pertenece a O(n^2).
+
 
 /************************************ EJERCICIO recorridoCubierto *******************************/
 vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
@@ -106,16 +115,13 @@ vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
 
 
 bool viajeEnFranja(viaje v,tiempo t0, tiempo tf){
-    bool enFranja = false;
-    for(int i = 0; i<v.size(); i++){
-        tiempo tActual = obtenerTiempo(v[i]);
-        if (tActual > t0 && tActual< tf){
-            enFranja = true;
-        }
+    int i = 0;
+    while(i < v.size() && !(obtenerTiempo(v[i]) > t0 && obtenerTiempo(v[i]) < tf)){
+        i++;
     }
-    return enFranja;
+    return i != v.size();
 }
-
+// es O(n) en el peor caso recorre todo el vector
 
 int flota(vector<viaje> f, tiempo t0, tiempo tf) {
     int resp  = 0;
@@ -131,6 +137,8 @@ int flota(vector<viaje> f, tiempo t0, tiempo tf) {
     return resp;
 }
 
+// Sea n = |f| y m = elementos de un vector cualquiera dentro de f.
+// En el peor caso la complejidad es O(n * m) recorre todos los elementos de f y los elementos dentro de ellos.
 /************************************** EJERCICIO construirGrilla *******************************/
 grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
     grilla resp = {};
