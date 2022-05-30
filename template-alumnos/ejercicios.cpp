@@ -154,12 +154,39 @@ int flota(vector<viaje> f, tiempo t0, tiempo tf) {
 // Sea n = |f| y m = elementos de un vector cualquiera dentro de f.
 // En el peor caso la complejidad es O(n * m) recorre todos los elementos de f y los elementos dentro de ellos.
 /************************************** EJERCICIO construirGrilla *******************************/
+
+
+gps esqSuperior(double altoCelda,double anchoCelda,int j, int i){
+    return make_tuple(altoCelda*i,anchoCelda*j);
+}
+
+gps esqInferior(double altoCelda,double anchoCelda,int j, int i){
+    return make_tuple(altoCelda*i,anchoCelda*j);
+}
+
+
 grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
     grilla resp = {};
+
+    double altoCelda = (get<0>(esq1) - get<0>(esq2))/n;
+    double anchoCelda = (get<1>(esq1) - get<1>(esq2))/n;
+
     // codigo
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+
+            tuple<gps,gps,nombre> elem = make_tuple(esqSuperior(altoCelda,anchoCelda,j,i),esqInferior(altoCelda,anchoCelda,j,i), make_tuple(i,j));
+            resp.push_back(elem);
+
+        }
+
+    }
+
 
     return resp;
 }
+
+
 
 /************************************* EJERCICIO cantidadDeSaltos ******************************/
 int cantidadDeSaltos(grilla g, viaje v) {
