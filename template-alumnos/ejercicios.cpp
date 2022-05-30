@@ -106,7 +106,7 @@ bool excesoDeVelocidad(viaje v) {
 /************************************ EJERCICIO recorridoCubierto *******************************/
 bool puntoCubiertoViaje(gps v, recorrido r, distancia u){
     bool estacubierto = false;
-    for (int i = 0; i< r.size() && estacubierto!= true; i++){
+    for (int i = 0; i< r.size() && !estacubierto; i++){
         distancia dist =distEnKM(v, r[i]);
         if (distEnKM(v, r[i]) < u){
             estacubierto = true;
