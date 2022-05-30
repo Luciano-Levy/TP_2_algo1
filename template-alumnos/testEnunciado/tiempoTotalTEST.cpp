@@ -7,9 +7,9 @@ using namespace std;
 const gps P = puntoGps(-33.5, -58.89996);
 
 
-TEST(tiempoTotalTEST, viajeLargo){
-    viaje v = {medicion(1.1, P),
-               medicion(1.5, P),
+TEST(tiempoTotalTEST, viajeLargo1){
+    viaje v = {medicion(1.5, P),
+               medicion(1.1, P),
                medicion(1.2, P),
                medicion(2.2, P),
                medicion(2.3, P),

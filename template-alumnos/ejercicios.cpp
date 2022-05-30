@@ -15,7 +15,6 @@ tiempo tiempoTotal(viaje v) {
     tiempo tMayor;
     tiempo tMenor = obtenerTiempo(v[0]);
     tiempo tActual;
-    int tamaño = v.size();
     for (int i= 0; i < v.size(); i ++){
         tActual = obtenerTiempo(v[i]);
         if (tActual > tMayor){
@@ -104,16 +103,7 @@ vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
 }
 
 /***************************************** EJERCICIO flota ***************************************/
-int tiempoMayor(viaje v, int j) {
-    tiempo tMenor = obtenerTiempo(v[j]);
-    for (int i = j; i <  v.size() -1 ; i++){
-        tiempo tActual = obtenerTiempo(v[i]);
-        if (tActual> obtenerTiempo(v[tMenor])){
-            tMenor = tActual;
-        }
-    }
-    return tMenor;
-}
+
 
 bool viajeEnFranja(viaje v,tiempo t0, tiempo tf){
     bool enFranja = false;
