@@ -156,33 +156,37 @@ int flota(vector<viaje> f, tiempo t0, tiempo tf) {
 /************************************** EJERCICIO construirGrilla *******************************/
 
 
-gps esqSuperior(double altoCelda,double anchoCelda,int j, int i){
-    return make_tuple(altoCelda*i,anchoCelda*j);
+
+gps esqSuperior(double altoCelda,double anchoCelda,int j,int i, gps esq1) {
+    gps posicionGrilla;
+    get<0>(posicionGrilla) = get<0>(esq1) - altoCelda*(j-1);
+    get<1>(posicionGrilla) = get<1>(esq1) + anchoCelda*(i-1);
+    return  posicionGrilla;
 }
 
-gps esqInferior(double altoCelda,double anchoCelda,int j, int i){
-    return make_tuple(altoCelda*i,anchoCelda*j);
-}
+gps esqInferior(double altoCelda,double anchoCelda,int j,int i, gps esq1){
+    gps posicionGrilla;
+    get<0>(posicionGrilla) = get<0>(esq1) - altoCelda*(j);
+    get<1>(posicionGrilla) = get<1>(esq1) + anchoCelda*(i);
+    return  posicionGrilla;}
 
 
 grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
     grilla resp = {};
 
     double altoCelda = (get<0>(esq1) - get<0>(esq2))/n;
-    double anchoCelda = (get<1>(esq1) - get<1>(esq2))/n;
+    double anchoCelda = (get<1>(esq2) - get<1>(esq1))/m;
 
     // codigo
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
 
-            tuple<gps,gps,nombre> elem = make_tuple(esqSuperior(altoCelda,anchoCelda,j,i),esqInferior(altoCelda,anchoCelda,j,i), make_tuple(i,j));
+            tuple<gps,gps,nombre> elem = make_tuple(esqSuperior(altoCelda,anchoCelda,j,i,esq1),esqInferior(altoCelda,anchoCelda,j,i,esq1), make_tuple(i,j));
             resp.push_back(elem);
 
         }
 
     }
-
-
     return resp;
 }
 
