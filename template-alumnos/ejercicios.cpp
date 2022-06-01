@@ -33,38 +33,6 @@ tiempo tiempoTotal(viaje v) {
 
 /************++*********************** EJERCICIO distanciaTotal ************++*********************/
 
-int tiempoMenor(viaje v, int j) {
-    int tMenor = j;
-    for (int i = j; i <  v.size() -1 ; i++){
-        tiempo tActual = obtenerTiempo(v[i]);
-        if (tActual< obtenerTiempo(v[tMenor])){
-            tMenor = i;
-        }
-    }
-    return tMenor;
-}
-// O(n) recorre todo el vector
-
-
-viaje swap(int i, int j , viaje v){
-    tuple<tiempo, gps> x = v[i];
-    tuple<tiempo, gps> y = v[j];
-    v[i] = y;
-    v[j] = x;
-    return v;
-}
-
-// PASAR LAS AUXILIARES A EL ARCHIVO AUXILIARES
-viaje ordenarPorTiempo(viaje v){
-    for (int i = 0; i < v.size() -1 ; i++){
-        int tMenor =  tiempoMenor(v, i);
-        v = swap(i, tMenor,v);
-    }
-    return v;
-}
-// es O(n^2) recorre todos los elementos y usa la funcion tiempoMenor que es O(n).
-// n = |v|
-
 distancia distanciaTotal(viaje v) {
     distancia d;
     // codigo
@@ -80,13 +48,7 @@ distancia distanciaTotal(viaje v) {
 // es O(n^2 + n), ordena el vector y despues lo recorre, pertenece a O(n^2).
 // n = |v|
 /*****************************+***** EJERCICIO excesoDeVelocidad **********************************/
-int velocidad(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2){
-    int distancia = distEnKM(obtenerPosicion(p2), obtenerPosicion(p1));
-    tiempo tmp = (obtenerTiempo(p2)- obtenerTiempo(p1)) / 3600;
-    int vel = distancia / tmp;
-    return  vel;
 
-}
 
 bool excesoDeVelocidad(viaje v) {
     bool resp = false;
@@ -106,13 +68,7 @@ bool excesoDeVelocidad(viaje v) {
 
 /************************************ EJERCICIO recorridoNoCubierto
  * *******************************/
-bool puntoCubiertoViaje(gps g, viaje v, distancia u){
-    int i = 0;
-    while (i < v.size() && (distEnKM(g, obtenerPosicion(v[i])) > u )){
-        i++;
-    }
-    return i!= v.size();
-}
+
 vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
     vector<gps> resp;
     // codigo
@@ -130,14 +86,6 @@ vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
 /***************************************** EJERCICIO flota ***************************************/
 
 
-bool viajeEnFranja(viaje v,tiempo t0, tiempo tf){
-    int i = 0;
-    while(i < v.size() && !(obtenerTiempo(v[i]) > t0 && obtenerTiempo(v[i]) < tf)){
-        i++;
-    }
-    return i != v.size();
-}
-// es O(n) en el peor caso recorre todo el vector
 
 int flota(vector<viaje> f, tiempo t0, tiempo tf) {
     int resp  = 0;
@@ -159,20 +107,7 @@ int flota(vector<viaje> f, tiempo t0, tiempo tf) {
 
 
 
-gps esqSuperior(double altoCelda,double anchoCelda,int j,int i, gps esq1,int n, int m) {
-    return puntoGps(obtenerLatitud(esq1) - altoCelda * (i-1),
-                    obtenerLongitud(esq1) + anchoCelda * (j-1));
 
-    // Empezar a usar aux obtenerLatitud y longitud
-}
-
-gps esqInferior(double altoCelda,double anchoCelda,int j,int i, gps
-esq2, int n,int m) {
-
-    return puntoGps(obtenerLatitud(esq2) + altoCelda * (n - i),
-                    obtenerLongitud(esq2) - anchoCelda * (m - j));
-
-}
 grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
     grilla resp = {};
 
