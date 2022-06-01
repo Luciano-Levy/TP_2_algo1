@@ -16,4 +16,5 @@ tuple<tiempo, gps> medicion(tiempo t, gps g);
 void guardarGrillaEnArchivo(grilla g, string nombreArchivo);
 void guardarRecorridosEnArchivo(vector<recorrido> recorridos, string nombreArchivo);
 
+bool sonSalto(gps v1,gps v2,grilla g);
 #endif //TRANSPORTEURBANO_AUXILIARES_H

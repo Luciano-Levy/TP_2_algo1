@@ -54,6 +54,7 @@ viaje swap(int i, int j , viaje v){
     return v;
 }
 
+// PASAR LAS AUXILIARES A EL ARCHIVO AUXILIARES
 viaje ordenarPorTiempo(viaje v){
     for (int i = 0; i < v.size() -1 ; i++){
         int tMenor =  tiempoMenor(v, i);
@@ -202,13 +203,18 @@ grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
 
 /************************************* EJERCICIO cantidadDeSaltos ******************************/
 int cantidadDeSaltos(grilla g, viaje v) {
-    int resp;
-    // codigo
+    int saltos = 0;
+    v=ordenarPorTiempo(v);
+    for (int i = 0; i < v.size()-1; ++i) {
+        bool sonSaltoConsecutivo = sonSalto(obtenerPosicion(v[i]),obtenerPosicion(v[i+1])
+                                            ,g);
+        if(sonSaltoConsecutivo)saltos+=1;
+    }
 
-    return resp;
+    return saltos;
 }
 
-
+// Ordenar es O(n^2) + iterar n-1*sonSaltoConsecutivo que es O(n) = O(n^2)
 /************************************* EJERCICIO corregirViaje ******************************/
 void corregirViaje(viaje& v, vector<tiempo> errores){
     // codig

@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <fstream>
 #include <iomanip>
-
+#include <cmath>
 using namespace std;
 
 const double pi = 3.14;
@@ -117,4 +117,31 @@ void guardarRecorridosEnArchivo(vector<recorrido> recorridos, string nombreArchi
     myfile.close();
 
 }
+
+int distanciaEntreCeldas(nombre c1,nombre c2){
+    return sqrt(pow(get<0>(c1)- get<0>(c2),2)+pow(get<1>(c1)- get<1>(c2),2));
+} // O(1)
+
+bool celdaEnCoordenada(gps x,gps g1,gps g2){
+    return (obtenerLatitud(g1) <= obtenerLatitud(x) < obtenerLatitud(g2)) &&
+    (obtenerLongitud(g1) <= obtenerLongitud(x) < obtenerLongitud(g2));
+} // O(1)
+
+// Pre viaje en grilla
+nombre celdaEnGrilla(gps x,grilla g){
+    int i = 0;
+    nombre res;
+    while(i<g.size() && !celdaEnCoordenada(x, get<0>(g[i]), get<1>(g[i]))){
+        res = get<2>(g[i]);
+    }
+    return res;
+} // O(n); n = |g|
+
+
+bool sonSalto(gps v1,gps v2,grilla g){
+    nombre celdav1 = celdaEnGrilla(v1,g);
+    nombre celdav2 = celdaEnGrilla(v2,g);
+    if(distanciaEntreCeldas(celdav1,celdav2))return true;
+    return false;
+} // O(n+n) = O(n); n = |g|
 
