@@ -103,7 +103,8 @@ bool excesoDeVelocidad(viaje v) {
 // es O(n^2 + n), ordena el vector y despues lo recorre, pertenece a O(n^2).
 
 
-/************************************ EJERCICIO recorridoCubierto *******************************/
+/************************************ EJERCICIO recorridoNoCubierto
+ * *******************************/
 bool puntoCubiertoViaje(gps g, viaje v, distancia u){
     int i = 0;
     while (i < v.size() && (distEnKM(g, obtenerPosicion(v[i])) > u )){
@@ -157,31 +158,38 @@ int flota(vector<viaje> f, tiempo t0, tiempo tf) {
 
 
 
-gps esqSuperior(double altoCelda,double anchoCelda,int j,int i, gps esq1) {
-    gps posicionGrilla;
-    get<0>(posicionGrilla) = get<0>(esq1) - altoCelda*(j-1);
-    get<1>(posicionGrilla) = get<1>(esq1) + anchoCelda*(i-1);
-    return  posicionGrilla;
+gps esqSuperior(double altoCelda,double anchoCelda,int j,int i, gps esq1,int n, int m) {
+    return puntoGps(obtenerLatitud(esq1) - altoCelda * (i-1),
+                    obtenerLongitud(esq1) + anchoCelda * (j-1));
+
+    // Empezar a usar aux obtenerLatitud y longitud
 }
 
-gps esqInferior(double altoCelda,double anchoCelda,int j,int i, gps esq1){
-    gps posicionGrilla;
-    get<0>(posicionGrilla) = get<0>(esq1) - altoCelda*(j);
-    get<1>(posicionGrilla) = get<1>(esq1) + anchoCelda*(i);
-    return  posicionGrilla;}
+gps esqInferior(double altoCelda,double anchoCelda,int j,int i, gps
+esq2, int n,int m) {
 
+    return puntoGps(obtenerLatitud(esq2) + altoCelda * (n - i),
+                    obtenerLongitud(esq2) - anchoCelda * (m - j));
 
+}
 grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
     grilla resp = {};
 
     double altoCelda = (get<0>(esq1) - get<0>(esq2))/n;
     double anchoCelda = (get<1>(esq2) - get<1>(esq1))/m;
 
-    // codigo
+    // i fila, j columna
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
 
-            tuple<gps,gps,nombre> elem = make_tuple(esqSuperior(altoCelda,anchoCelda,j,i,esq1),esqInferior(altoCelda,anchoCelda,j,i,esq1), make_tuple(i,j));
+            tuple<gps,gps,nombre> elem = make_tuple(esqSuperior(altoCelda,
+                                                                anchoCelda,j,
+                                                                i,esq1,
+                                                                n,m),
+                                                    esqInferior(altoCelda,
+                                                                anchoCelda,j,
+                                                                i,esq2,
+                                                                n,m), make_tuple(i,j));
             resp.push_back(elem);
 
         }

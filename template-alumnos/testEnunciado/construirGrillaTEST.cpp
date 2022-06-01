@@ -24,4 +24,5 @@ TEST(construirGrillaTEST, nombresCorrectosDistanciaParNParMImparArg){
     grilla g = construirGrilla(esq1,esq2,n,m);
 
     EXPECT_EQ(n*m, g.size());
+    EXPECT_EQ(gres,g);
 }
