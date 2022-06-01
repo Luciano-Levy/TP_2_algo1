@@ -18,3 +18,15 @@ void guardarRecorridosEnArchivo(vector<recorrido> recorridos, string nombreArchi
 
 bool sonSalto(gps v1,gps v2,grilla g);
 #endif //TRANSPORTEURBANO_AUXILIARES_H
+int tiempoMenor(viaje v, int j) ;
+viaje swap(int i, int j , viaje v);
+viaje ordenarPorTiempo(viaje v);
+int velocidad(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2);
+bool puntoCubiertoViaje(gps g, viaje v, distancia u);
+bool viajeEnFranja(viaje v,tiempo t0, tiempo tf);
+gps esqSuperior(double altoCelda,double anchoCelda,int j,int i, gps esq1,int n, int m);
+gps esqInferior(double altoCelda,double anchoCelda,int j,int i, gps esq2, int n,int m);
+int distanciaEntreCeldas(nombre c1,nombre c2);
+bool celdaEnCoordenada(gps x,gps g1,gps g2);
+nombre celdaEnGrilla(gps x,grilla g);
+bool sonSalto(gps v1,gps v2,grilla g);
