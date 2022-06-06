@@ -83,7 +83,6 @@ vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
     return resp;
 }
 
-
 /***************************************** EJERCICIO flota ***************************************/
 
 
@@ -135,8 +134,6 @@ grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
     return resp;
 }
 
-
-
 /************************************* EJERCICIO cantidadDeSaltos ******************************/
 int cantidadDeSaltos(grilla g, viaje v) {
     int saltos = 0;
@@ -153,6 +150,7 @@ int cantidadDeSaltos(grilla g, viaje v) {
 // Ordenar es O(n^2) + iterar n-1*sonSaltoConsecutivo que es O(n) = O(n^2)
 
 /************************************* EJERCICIO corregirViaje ******************************/
+
 bool noEsError (tiempo t, vector<tiempo> errores){
     int i=0;
     while (i< errores.size() && t != errores[i]){
@@ -182,8 +180,8 @@ float longitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo
 
 
 viaje masCercanos(viaje v, tiempo t,vector<tiempo> errores){
-    tuple<tiempo, gps> puntoMasCerca = v[0];
-    tuple<tiempo, gps> puntoCerca = v[0];
+    tuple<tiempo, gps> puntoMasCerca ;
+    tuple<tiempo, gps> puntoCerca ;
     viaje puntoMasCercanos;
     for (int i = 0; i< v.size();i++){
         if (abs(obtenerTiempo(v[i])- t) < abs(obtenerTiempo(puntoMasCerca)-t) &&
