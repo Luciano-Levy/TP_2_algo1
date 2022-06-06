@@ -151,68 +151,6 @@ int cantidadDeSaltos(grilla g, viaje v) {
 
 /************************************* EJERCICIO corregirViaje ******************************/
 
-bool noEsError (tiempo t, vector<tiempo> errores){
-    int i=0;
-    while (i< errores.size() && t != errores[i]){
-        i ++;
-    }
-    return i == errores.size();
-}
-
-double latitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir){
-    float lat ;
-    lat = ((obtenerLatitud(obtenerPosicion(p2)) - obtenerLatitud(obtenerPosicion(p1))) *
-           (obtenerTiempo(corregir)- obtenerTiempo(p1))) /
-          (obtenerTiempo(p2) - obtenerTiempo(p1)) + obtenerLatitud(obtenerPosicion(p1));
-    return  lat;
-
-}
-
-float longitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir){
-    float lat ;
-    lat = ((obtenerLongitud(obtenerPosicion(p2)) - obtenerLongitud(obtenerPosicion(p1))) *
-           (obtenerTiempo(corregir)- obtenerTiempo(p1))) /
-                  (obtenerTiempo(p2) - obtenerTiempo(p1)) + obtenerLongitud(obtenerPosicion(p1));
-    return  lat;
-
-}
-
-
-
-viaje masCercanos(viaje v, tiempo t,vector<tiempo> errores){
-    tuple<tiempo, gps> puntoMasCerca ;
-    tuple<tiempo, gps> puntoCerca ;
-    viaje puntoMasCercanos;
-    for (int i = 0; i< v.size();i++){
-        if (abs(obtenerTiempo(v[i])- t) < abs(obtenerTiempo(puntoMasCerca)-t) &&
-        noEsError(obtenerTiempo(v[i]), errores)){
-            puntoMasCerca = v[i];
-        }
-    }
-    puntoMasCercanos.push_back(puntoMasCerca);
-    for (int i = 0; i< v.size();i++){
-        if (v[i] != puntoMasCerca && abs(obtenerTiempo(v[i])- t) < abs(obtenerTiempo(puntoCerca)-t) &&
-             noEsError(obtenerTiempo(v[i]), errores)){
-            puntoCerca = v[i];
-        }
-    }
-    puntoMasCercanos.push_back(puntoCerca);
-    return puntoMasCercanos;
-}
-
-
-gps corregirError (viaje v, tiempo error,vector<tiempo> errores ){
-    int i= 0;
-    while (i<v.size() && obtenerTiempo(v[i]) != error){i++;}
-    viaje puntosCercanos = masCercanos(v, obtenerTiempo(v[i]), errores);
-    double latitud = latitudCorrecta(puntosCercanos[0],puntosCercanos[1], v[i]);
-    double  longitud = longitudCorrecta(puntosCercanos[0],puntosCercanos[1], v[i]);
-    gps corregido = obtenerPosicion(v[i]);
-    get<0>(corregido) = latitud;
-    get<1>(corregido) = longitud;
-    return  corregido;
-}
-
 
 void corregirViaje(viaje& v, vector<tiempo> errores){
     // codig
