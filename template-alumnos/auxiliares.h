@@ -30,3 +30,9 @@ int distanciaEntreCeldas(nombre c1,nombre c2);
 bool celdaEnCoordenada(gps x,gps g1,gps g2);
 nombre celdaEnGrilla(gps x,grilla g);
 bool sonSalto(gps v1,gps v2,grilla g);
+
+bool noEsError (tiempo t, vector<tiempo> errores);
+gps corregirError (viaje v, tiempo error,vector<tiempo> errores );
+viaje masCercanos(viaje v, tiempo t,vector<tiempo> errores);
+float longitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir);
+double latitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir);
