@@ -19,3 +19,15 @@ TEST(cantidadDeSaltosTEST, todosSaltosOrdenados){
     EXPECT_EQ(cantidadDeSaltos(g,v),2);
 }
 
+
+TEST(cantidadDeSaltosTEST, unSalto) {
+    grilla g = construirGrilla(puntoGps(0.0, 0.0), puntoGps(150,300),  3, 3);
+    gps p1 = puntoGps(0, 0);
+    gps p2 = puntoGps(150,290);
+    gps p3 = puntoGps(165,268);
+    viaje v = {medicion(1.5, p1),
+               medicion(1.6, p2),
+               medicion(1.7, p3)};
+    EXPECT_EQ(cantidadDeSaltos(g,v),1);
+
+}

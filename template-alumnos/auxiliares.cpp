@@ -212,8 +212,8 @@ int distanciaEntreCeldas(nombre c1,nombre c2){
 } // O(1)
 
 bool celdaEnCoordenada(gps x,gps g1,gps g2){
-    return (obtenerLatitud(g1) <= obtenerLatitud(x) < obtenerLatitud(g2)) &&
-    (obtenerLongitud(g1) <= obtenerLongitud(x) < obtenerLongitud(g2));
+    return (obtenerLatitud(g1) <= obtenerLatitud(x) &&  obtenerLatitud(x)< obtenerLatitud(g2)) &&
+    (obtenerLongitud(g1) <= obtenerLongitud(x) && obtenerLongitud(x) < obtenerLongitud(g2));
 } // O(1)
 
 // Pre viaje en grilla
