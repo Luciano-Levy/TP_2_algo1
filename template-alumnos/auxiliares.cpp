@@ -236,7 +236,7 @@ bool sonSalto(gps v1,gps v2,grilla g){
         return true;
     }
     return false;
-} // O(n+n) = O(n); n = |g|
+} // O(m+m) = O(m); m = |g|
 
 ////////////////
 bool noEsError (tiempo t, vector<tiempo> errores){
@@ -245,7 +245,7 @@ bool noEsError (tiempo t, vector<tiempo> errores){
         i ++;
     }
     return i == errores.size();
-}
+} //  O(n), n = |errores|
 
 double latitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir){
     float lat ;
@@ -254,7 +254,7 @@ double latitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo
           (obtenerTiempo(p2) - obtenerTiempo(p1)) + obtenerLatitud(obtenerPosicion(p1));
     return  lat;
 
-}
+} // O(1)
 
 float longitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir){
     float lat ;
@@ -263,11 +263,12 @@ float longitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo
           (obtenerTiempo(p2) - obtenerTiempo(p1)) + obtenerLongitud(obtenerPosicion(p1));
     return  lat;
 
-}
+} // O(1)
 
 
 
-viaje masCercanos(viaje v, tiempo t,vector<tiempo> errores){
+viaje masCercanos(viaje v, tiempo t,vector<tiempo> errores){ //m = |v|, n =|errores|
+
     tuple<tiempo, gps> puntoMasCerca ;
     tuple<tiempo, gps> puntoCerca ;
     viaje puntoMasCercanos;
@@ -276,27 +277,28 @@ viaje masCercanos(viaje v, tiempo t,vector<tiempo> errores){
             noEsError(obtenerTiempo(v[i]), errores)){
             puntoMasCerca = v[i];
         }
-    }
+    } // O(n*m)
     puntoMasCercanos.push_back(puntoMasCerca);
     for (int i = 0; i< v.size();i++){
         if (v[i] != puntoMasCerca && abs(obtenerTiempo(v[i])- t) < abs(obtenerTiempo(puntoCerca)-t) &&
             noEsError(obtenerTiempo(v[i]), errores)){
             puntoCerca = v[i];
         }
-    }
+    } // O(n*m)
     puntoMasCercanos.push_back(puntoCerca);
     return puntoMasCercanos;
-}
+}// O(n*m)
 
 
 gps corregirError (viaje v, tiempo error,vector<tiempo> errores ){
     int i= 0;
-    while (i<v.size() && obtenerTiempo(v[i]) != error){i++;}
+    while (i<v.size() && obtenerTiempo(v[i]) != error){i++;} // O(m), m = |v|
     viaje puntosCercanos = masCercanos(v, obtenerTiempo(v[i]), errores);
+    // O(m*n)
     double latitud = latitudCorrecta(puntosCercanos[0],puntosCercanos[1], v[i]);
     double  longitud = longitudCorrecta(puntosCercanos[0],puntosCercanos[1], v[i]);
     gps corregido = obtenerPosicion(v[i]);
     get<0>(corregido) = latitud;
     get<1>(corregido) = longitud;
     return  corregido;
-}
+} // O(n*m)

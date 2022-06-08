@@ -34,7 +34,7 @@ tiempo tiempoTotal(viaje v) {
 
 /************++*********************** EJERCICIO distanciaTotal ************++*********************/
 
-distancia distanciaTotal(viaje v) {
+distancia distanciaTotal(viaje v) {// n = |v|
     distancia d;
     // codigo
     viaje v0 = v;
@@ -47,11 +47,11 @@ distancia distanciaTotal(viaje v) {
 }
 
 // es O(n^2 + n), ordena el vector y despues lo recorre, pertenece a O(n^2).
-// n = |v|
+
 /*****************************+***** EJERCICIO excesoDeVelocidad **********************************/
 
 
-bool excesoDeVelocidad(viaje v) {
+bool excesoDeVelocidad(viaje v) { // n = |v|
     bool resp = false;
 
 
@@ -70,7 +70,7 @@ bool excesoDeVelocidad(viaje v) {
 /************************************ EJERCICIO recorridoNoCubierto
  * *******************************/
 
-vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
+vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) { // n =|v|, m = |r|
     vector<gps> resp;
     // codigo
 
@@ -82,7 +82,7 @@ vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) {
     }
     return resp;
 }
-
+// O(n*m)
 /***************************************** EJERCICIO flota ***************************************/
 
 
@@ -132,10 +132,10 @@ grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
 
     }
     return resp;
-}
+} // O(n*m)
 
 /************************************* EJERCICIO cantidadDeSaltos ******************************/
-int cantidadDeSaltos(grilla g, viaje v) {
+int cantidadDeSaltos(grilla g, viaje v) { // m = |g|, n = |v|
     int saltos = 0;
     v=ordenarPorTiempo(v);
     for (int i = 0; i < v.size()-1; ++i) {
@@ -147,21 +147,20 @@ int cantidadDeSaltos(grilla g, viaje v) {
     return saltos;
 }
 
-// Ordenar es O(n^2) + iterar n-1*sonSaltoConsecutivo que es O(n) = O(n^2)
+// Ordenar es O(n^2) + iterar n-1*sonSalto que es O(m) = O(n^2+m)
 
 /************************************* EJERCICIO corregirViaje ******************************/
 
 
-void corregirViaje(viaje& v, vector<tiempo> errores){
-    // codig
-    for (int i=0 ; i < errores.size();i++){
-        gps corregido = corregirError(v, errores[i], errores);
-        for (int j = 0; j< v.size(); j++ ){
+void corregirViaje(viaje& v, vector<tiempo> errores){// m = |v|, n = |errores|
+    for (int i=0 ; i < errores.size();i++){ // O(n)
+        gps corregido = corregirError(v, errores[i], errores);//O(n*m)
+        for (int j = 0; j< v.size(); j++ ){//O(m)
             if(obtenerTiempo(v[j])== errores[i]){
                 get<1>(v[j]) = corregido;
             }
         }
     }
 
-}
+}// O(n^2*m^2)
 
