@@ -9,10 +9,8 @@
 using namespace std;
 
 /******++++**************************** EJERCICIO tiempoTotal ***********+++***********************/
-tiempo tiempoTotal(viaje v) {
+tiempo tiempoTotal(viaje v) { // n = |v|
     tiempo t;
-
-    // codigo
     tiempo tMayor;
     tiempo tMenor = obtenerTiempo(v[0]);
     tiempo tActual;
@@ -30,17 +28,15 @@ tiempo tiempoTotal(viaje v) {
 }
 
 // O(n) recorre todos los elementos para asegurarse de tener el mayor y el menor.
-// // n = |v|
+
 
 /************++*********************** EJERCICIO distanciaTotal ************++*********************/
 
 distancia distanciaTotal(viaje v) {// n = |v|
-    distancia d;
-    // codigo
-    viaje v0 = v;
-    v0 = ordenarPorTiempo(v);
-    for (int i = 1; i< v0.size(); i++){
-        d = d + distEnKM(obtenerPosicion(v0[i]), obtenerPosicion(v0[i-1]));
+    distancia d = 0;
+    v = ordenarPorTiempo(v);
+    for (int i = 1; i< v.size(); i++){
+        d = d + distEnKM(obtenerPosicion(v[i]), obtenerPosicion(v[i-1]));
     }
 
     return d;
@@ -52,8 +48,6 @@ distancia distanciaTotal(viaje v) {// n = |v|
 
 
 bool excesoDeVelocidad(viaje v) { // n = |v|
-    bool resp = false;
-
 
     v = ordenarPorTiempo(v);
     int i = 0;
@@ -72,8 +66,6 @@ bool excesoDeVelocidad(viaje v) { // n = |v|
 
 vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) { // n =|v|, m = |r|
     vector<gps> resp;
-    // codigo
-
     for (int i = 0; i < r.size(); i++){
         if (!puntoCubiertoViaje(r[i],v,u))
         {
@@ -89,7 +81,6 @@ vector<gps> recorridoNoCubierto(viaje v, recorrido r, distancia u) { // n =|v|, 
 
 int flota(vector<viaje> f, tiempo t0, tiempo tf) {
     int resp  = 0;
-    // codigo
     for(int i = 0; i<f.size(); i++){
         viaje v = f[i];
         if (viajeEnFranja(v, t0, tf)){
@@ -120,12 +111,10 @@ grilla construirGrilla(gps esq1, gps esq2, int n, int m) {
 
             tuple<gps,gps,nombre> elem = make_tuple(esqSuperior(altoCelda,
                                                                 anchoCelda,j,
-                                                                i,esq1,
-                                                                n,m),
+                                                                i,esq1),
                                                     esqInferior(altoCelda,
                                                                 anchoCelda,j,
-                                                                i,esq2,
-                                                                n,m), make_tuple(i,j));
+                                                                i,esq2,n,m), make_tuple(i,j));
             resp.push_back(elem);
 
         }

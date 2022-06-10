@@ -154,10 +154,10 @@ viaje ordenarPorTiempo(viaje v){
 
 /////////////////////
 
-int velocidad(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2){
-    int distancia = distEnKM(obtenerPosicion(p2), obtenerPosicion(p1));
+double velocidad(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2){
+    double distancia = distEnKM(obtenerPosicion(p2), obtenerPosicion(p1));
     tiempo tmp = (obtenerTiempo(p2)- obtenerTiempo(p1)) / 3600;
-    int vel = distancia / tmp;
+    double vel = distancia / tmp;
     return  vel;
 
 } // O(1)
@@ -189,7 +189,7 @@ bool viajeEnFranja(viaje v,tiempo t0, tiempo tf){
 
 ////////////////////////////
 
-gps esqSuperior(double altoCelda,double anchoCelda,int j,int i, gps esq1,int n, int m) {
+gps esqSuperior(double altoCelda,double anchoCelda,int j,int i, gps esq1) {
     return puntoGps(obtenerLatitud(esq1) - altoCelda * (i-1),
                     obtenerLongitud(esq1) + anchoCelda * (j-1));
 
@@ -250,7 +250,7 @@ bool noEsError (tiempo t, vector<tiempo> errores){
 } //  O(n), n = |errores|
 
 double latitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir){
-    float lat ;
+    double lat ;
     lat = ((obtenerLatitud(obtenerPosicion(p2)) - obtenerLatitud(obtenerPosicion(p1))) *
            (obtenerTiempo(corregir)- obtenerTiempo(p1))) /
           (obtenerTiempo(p2) - obtenerTiempo(p1)) + obtenerLatitud(obtenerPosicion(p1));
@@ -258,8 +258,8 @@ double latitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo
 
 } // O(1)
 
-float longitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir){
-    float lat ;
+double longitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir){
+    double lat ;
     lat = ((obtenerLongitud(obtenerPosicion(p2)) - obtenerLongitud(obtenerPosicion(p1))) *
            (obtenerTiempo(corregir)- obtenerTiempo(p1))) /
           (obtenerTiempo(p2) - obtenerTiempo(p1)) + obtenerLongitud(obtenerPosicion(p1));
