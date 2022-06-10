@@ -25,4 +25,5 @@ TEST(construirGrillaTEST, nombresCorrectosDistanciaParNParMImparArg){
 
     EXPECT_EQ(n*m, g.size());
     EXPECT_EQ(gres,g);
+    EXPECT_TRUE(sonGrillasIguales(g,gres));
 }
