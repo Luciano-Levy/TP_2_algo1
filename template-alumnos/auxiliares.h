@@ -36,3 +36,4 @@ gps corregirError (viaje v, tiempo error,vector<tiempo> errores );
 viaje masCercanos(viaje v, tiempo t,vector<tiempo> errores);
 double longitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir);
 double latitudCorrecta(tuple<tiempo, gps> p1, tuple<tiempo, gps> p2,tuple<tiempo, gps> corregir);
+bool sonGrillasIguales(grilla g0, grilla g1);

@@ -304,3 +304,21 @@ gps corregirError (viaje v, tiempo error,vector<tiempo> errores ){
     get<1>(corregido) = longitud;
     return  corregido;
 } // O(n*m)
+
+int cantApariciones(tuple<gps,gps,nombre> celda, grilla g){
+    int apariciones = 0;
+    for (int i = 0; i<g.size();i++){
+        if (celda == g[i])
+            apariciones ++  ;
+    }
+    return apariciones;
+}
+
+bool sonGrillasIguales(grilla g0, grilla g1){
+   int i = 0;
+    while (i< g1.size() && (cantApariciones(g0[i],g0) == cantApariciones(g0[i],g1))){
+        i++;
+    }
+
+    return i == g1.size();
+}
