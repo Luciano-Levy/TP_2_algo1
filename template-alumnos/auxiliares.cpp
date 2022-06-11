@@ -122,7 +122,7 @@ void guardarRecorridosEnArchivo(vector<recorrido> recorridos, string nombreArchi
 
 int tiempoMenor(viaje v, int j) {
     int tMenor = j;
-    for (int i = j; i <  v.size() -1 ; i++){
+    for (int i = j; i <  v.size(); i++){
         tiempo tActual = obtenerTiempo(v[i]);
         if (tActual< obtenerTiempo(v[tMenor])){
             tMenor = i;

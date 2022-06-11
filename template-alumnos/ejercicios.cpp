@@ -50,7 +50,7 @@ distancia distanciaTotal(viaje v) {// n = |v|
 bool excesoDeVelocidad(viaje v) { // n = |v|
 
     v = ordenarPorTiempo(v);
-    int i = 0;
+    int i = 1;
     while(i < v.size() && velocidad(v[i-1],v[i]) < 80){
         i++;
     }
