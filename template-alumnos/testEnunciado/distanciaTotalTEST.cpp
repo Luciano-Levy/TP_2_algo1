@@ -15,4 +15,3 @@ TEST(distanciaTotalTEST, viajeDesordenado){
 
     EXPECT_NEAR(distanciaTotal(v), 4.0, 0.01);
 }
-
