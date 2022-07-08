@@ -51,7 +51,7 @@ bool excesoDeVelocidad(viaje v) { // n = |v|
 
     v = ordenarPorTiempo(v);
     int i = 1;
-    while(i < v.size() && velocidad(v[i-1],v[i]) < 80){
+    while(i < v.size() && velocidad(v[i-1],v[i]) < 80.001){
         i++;
     }
     return i != v.size();

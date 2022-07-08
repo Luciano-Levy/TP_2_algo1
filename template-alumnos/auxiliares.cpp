@@ -7,8 +7,8 @@
 #include <cmath>
 using namespace std;
 
-const double pi = 3.14;
-double radioTierra = 6378;
+const double PI = 3.14;
+double RADIOTIERRA = 6378;
 
 double obtenerLatitud(gps posicion) {
     return get<0>(posicion);
@@ -32,12 +32,12 @@ double distEnKM(gps posicion1, gps posicion2) {
     double longitud2 = obtenerLongitud(posicion2);
 
     // obtengo la distancia
-    double distanciaLatitud = (latitud2 - latitud1) * pi / 180.0;
-    double distanciaLongitud = (longitud2 - longitud1) * pi / 180.0;
+    double distanciaLatitud = (latitud2 - latitud1) * PI / 180.0;
+    double distanciaLongitud = (longitud2 - longitud1) * PI / 180.0;
 
     // paso las latitudes a radianes
-    latitud1 = (latitud1) * pi / 180.0;
-    latitud2 = (latitud2) * pi / 180.0;
+    latitud1 = (latitud1) * PI / 180.0;
+    latitud2 = (latitud2) * PI / 180.0;
 
     // aplico la formula
     double a = pow(sin(distanciaLatitud / 2), 2) +
@@ -45,7 +45,7 @@ double distEnKM(gps posicion1, gps posicion2) {
                cos(latitud1) * cos(latitud2);
 
     double c = 2 * asin(sqrt(a));
-    return radioTierra * c;
+    return RADIOTIERRA * c;
 }
 
 gps desviarPunto(gps p, double desvioMtsLatitud, double desvioMtsLongitud){
@@ -54,8 +54,8 @@ gps desviarPunto(gps p, double desvioMtsLatitud, double desvioMtsLongitud){
 
     double dx = desvioMtsLatitud / 1000;
     double dy = desvioMtsLongitud / 1000;
-    double new_latitude = lat + (dx / radioTierra) * (180 / pi);
-    double new_longitude = lon + (dy / radioTierra) * (180 / pi) / cos(lat * pi / 180);
+    double new_latitude = lat - (dx / RADIOTIERRA) * (180 / PI);
+    double new_longitude = lon + (dy / RADIOTIERRA) * (180 / PI) / cos(lat * PI / 180);
     return puntoGps(new_latitude, new_longitude);
 
 }
@@ -180,7 +180,7 @@ bool puntoCubiertoViaje(gps g, viaje v, distancia u){
 
 bool viajeEnFranja(viaje v,tiempo t0, tiempo tf){
     int i = 0;
-    while(i < v.size() && !(obtenerTiempo(v[i]) > t0 && obtenerTiempo(v[i]) < tf)){
+    while(i < v.size() && !(obtenerTiempo(v[i]) >= t0 && obtenerTiempo(v[i]) <= tf)){
         i++;
     }
     return i != v.size();

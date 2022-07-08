@@ -22,3 +22,9 @@ TEST(excesoDeVelocidadTEST, superaLaVelocidad){
 
     EXPECT_TRUE(excesoDeVelocidad(v));
 }
+TEST(excesoDeVelocidadTEST, velocidadIgualLimite){
+    viaje v = {medicion(0.0, P),
+               medicion(unaHora*1.25, desviarPunto(P, 100000, 0))}; // 100 KM por hora.
+
+    EXPECT_FALSE(excesoDeVelocidad(v));
+}

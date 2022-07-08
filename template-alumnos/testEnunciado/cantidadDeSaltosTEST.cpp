@@ -40,3 +40,17 @@ TEST(cantidadDeSaltosTEST, sinSaltos) {
     EXPECT_EQ(cantidadDeSaltos(g,v),0);
 
 }
+
+TEST(cantidadDeSaltosTEST, movimientoDiagonalNoProduceSaltos){
+    grilla g = construirGrilla(puntoGps(0.0,0.0),desviarPunto(puntoGps(0.0,0.0), 3000, 3000),3,3);
+
+    gps p1 = puntoGps(0, 0);
+    gps p2 = desviarPunto(p1, 1000, 1000);
+    gps p3 = desviarPunto(p1, 2000, 2000);
+
+    viaje v = {medicion(1.5, p1),
+               medicion(1.6, p2),
+               medicion(1.7, p3)};
+
+    EXPECT_EQ(cantidadDeSaltos(g,v),0);
+}
