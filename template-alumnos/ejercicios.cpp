@@ -132,7 +132,6 @@ int cantidadDeSaltos(grilla g, viaje v) { // m = |g|, n = |v|
                                             ,g);
         if(sonSaltoConsecutivo)saltos+=1;
     }
-
     return saltos;
 }
 

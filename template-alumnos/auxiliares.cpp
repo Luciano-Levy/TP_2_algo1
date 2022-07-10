@@ -235,7 +235,7 @@ nombre obtenerNombreGps(gps x,grilla g){
 bool sonSalto(gps v1,gps v2,grilla g){
     nombre celdav1 = obtenerNombreGps(v1,g);
     nombre celdav2 = obtenerNombreGps(v2,g);
-    if(distanciaEntreCeldas(celdav2,celdav1)){
+    if(distanciaEntreCeldas(celdav1,celdav2)){
         return true;
     }
     return false;
