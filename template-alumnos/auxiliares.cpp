@@ -208,7 +208,7 @@ esq2, int n,int m) {
 /////////////////////////
 
 int distanciaEntreCeldas(nombre c1,nombre c2){
-    return sqrt(pow(get<0>(c1)- get<0>(c2),2)+pow(get<1>(c1)- get<1>(c2),2)) > 1;
+    return sqrt(pow(get<0>(c1)- get<0>(c2),2)+pow(get<1>(c1)- get<1>(c2),2)) >= 2 ;
 } // O(1)
 
 bool celdaEnCoordenada(gps x,gps g1,gps g2){
@@ -218,12 +218,13 @@ bool celdaEnCoordenada(gps x,gps g1,gps g2){
 
 // Pre viaje en grilla
 
-nombre celdaEnGrilla(gps x,grilla g){
+nombre obtenerNombreGps(gps x,grilla g){
     int i = 0;
     nombre res;
     while(i<g.size()) {
     if(celdaEnCoordenada(x,get<0>(g[i]), get<1>(g[i]))){
         res = get<2>(g[i]);
+        i = g.size();
     }
         i++;
     }
@@ -232,9 +233,9 @@ nombre celdaEnGrilla(gps x,grilla g){
 
 
 bool sonSalto(gps v1,gps v2,grilla g){
-    nombre celdav1 = celdaEnGrilla(v1,g);
-    nombre celdav2 = celdaEnGrilla(v2,g);
-    if(distanciaEntreCeldas(celdav1,celdav2)){
+    nombre celdav1 = obtenerNombreGps(v1,g);
+    nombre celdav2 = obtenerNombreGps(v2,g);
+    if(distanciaEntreCeldas(celdav2,celdav1)){
         return true;
     }
     return false;
