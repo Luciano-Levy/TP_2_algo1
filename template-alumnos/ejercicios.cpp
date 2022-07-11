@@ -49,9 +49,10 @@ distancia distanciaTotal(viaje v) {// n = |v|
 
 bool excesoDeVelocidad(viaje v) { // n = |v|
 
+    auto error = 0.001;
     v = ordenarPorTiempo(v);
     int i = 1;
-    while(i < v.size() && velocidad(v[i-1],v[i]) < 80.001){
+    while(i < v.size() && velocidad(v[i-1],v[i]) < (80+error)){
         i++;
     }
     return i != v.size();
